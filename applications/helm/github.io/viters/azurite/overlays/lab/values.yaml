@@ -72,7 +72,7 @@ persistentVolume:
   accessModes:
     - ReadWriteOnce
   size: 1Gi
-  storageClass: null
+  storageClass: standard
 
 ingress:
   enabled: false
