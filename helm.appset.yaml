@@ -1,0 +1,73 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: lab
+  namespace: argo-cd
+spec:
+  goTemplate: true
+  generators:
+    - git:
+        repoURL: https://github.com/Spaceship-Moon/lab-gitops.git
+        revision: refs/heads/dev
+        directories:
+          - path: applications/helm/*/*/*/overlays/*
+  template:
+    metadata:
+      name: '{{ index .path.segments 4 | replace "_" "-"}}-{{ .path.basename }}'
+      namespace: argo-cd
+    spec:
+      project: '{{ .path.basename }}'
+      destination:
+        namespace:  '{{ index .path.segments 4 }}'
+        name: in-cluster
+      source:
+        chart: '{{ index .path.segments 4 }}'
+        repoURL: >-
+          {{- if eq (index .path.segments 3) "kedacore" -}}
+          https://kedacore.github.io/charts
+          {{- else if eq (index .path.segments 3) "bitnami" -}}
+          registry-1.docker.io/bitnamicharts
+          {{- else if eq (index .path.segments 3) "viters" -}}
+          https://viters.github.io/azurite-helm-chart
+          {{- else if eq (index .path.segments 3) "argoproj" -}}
+          https://argoproj.github.io/argo-helm
+          {{- else if eq (index .path.segments 3) "prometheus-community" -}}
+          https://prometheus-community.github.io/helm-charts
+          {{- else if eq (index .path.segments 3) "emberstack" -}}
+          https://emberstack.github.io/helm-charts
+
+          {{- else -}}
+          https://charts.helm.sh/stable
+          {{- end -}}
+        targetRevision: >-
+          {{- if eq (index .path.segments 4) "keda" -}}
+          2.13.2
+          {{- else if eq (index .path.segments 4) "rabbitmq" -}}
+          13.0.0
+          {{- else if eq (index .path.segments 4) "rabbitmq-cluster-operator" -}}
+          2.7.0
+          {{- else if eq (index .path.segments 4) "azurite" -}}
+          2.0.0
+          {{- else if eq (index .path.segments 4) "argo-workflows" -}}
+          0.41.0
+          {{- else if eq (index .path.segments 4) "argo-events" -}}
+          2.4.4
+          {{- else if eq (index .path.segments 4) "prometheus" -}}
+          25.18.0
+          {{- else if eq (index .path.segments 4) "mongodb-sharded" -}}
+          8.0.2
+          {{- else if eq (index .path.segments 4) "reflector" -}}
+          7.1.262
+          {{- else if eq (index .path.segments 4) "postgresql" -}}
+          15.1.4
+          {{- else -}}
+          0.0.0
+          {{- end -}}
+        helm:
+          releaseName: '{{ index .path.segments 4 | replace "_" "-"}}-{{ .path.basename }}'
+          valueFiles:
+            - values.yaml
+      #syncPolicy:
+      #  automated:
+      #    prune: true
+      #    selfHeal: true
