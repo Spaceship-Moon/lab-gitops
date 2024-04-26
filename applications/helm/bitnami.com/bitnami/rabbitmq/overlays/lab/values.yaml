@@ -172,7 +172,7 @@ auth:
   ## e.g:
   ## existingErlangSecret: name-of-existing-secret
   ##
-  existingErlangSecret: ""
+  existingErlangSecret: rabbitmq-lab
   ## @param auth.existingSecretErlangKey [default: rabbitmq-erlang-cookie] Erlang cookie key to be retrieved from existing secret
   ## NOTE: ignored unless `auth.existingErlangSecret` parameter is set
   ##
