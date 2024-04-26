@@ -156,11 +156,11 @@ auth:
   ## e.g:
   ## existingPasswordSecret: name-of-existing-secret
   ##
-  existingPasswordSecret: rabbitmq-secrets
+  existingPasswordSecret: rabbitmq-lab
   ## @param auth.existingSecretPasswordKey [default: rabbitmq-password] Password key to be retrieved from existing secret
   ## NOTE: ignored unless `auth.existingSecret` parameter is set
   ##
-  existingSecretPasswordKey: password
+  existingSecretPasswordKey: rabbitmq-password
   ## @param auth.enableLoopbackUser If enabled, the user `auth.username` can only connect from localhost
   ##
   enableLoopbackUser: false
