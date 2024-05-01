@@ -35,7 +35,6 @@ spec:
           https://prometheus-community.github.io/helm-charts
           {{- else if eq (index .path.segments 3) "emberstack" -}}
           https://emberstack.github.io/helm-charts
-
           {{- else -}}
           https://charts.helm.sh/stable
           {{- end -}}
@@ -54,12 +53,14 @@ spec:
           2.4.4
           {{- else if eq (index .path.segments 4) "prometheus" -}}
           25.18.0
-          {{- else if eq (index .path.segments 4) "mongodb-sharded" -}}
-          8.0.2
+          {{- else if eq (index .path.segments 4) "mongodb" -}}
+          15.1.5
           {{- else if eq (index .path.segments 4) "reflector" -}}
           7.1.262
           {{- else if eq (index .path.segments 4) "postgresql" -}}
           15.1.4
+          {{- else if eq (index .path.segments 4) "harbor" -}}
+          21.1.2
           {{- else -}}
           0.0.0
           {{- end -}}
