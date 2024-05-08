@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rover
+  namespace: rover
+spec:
+    replicas: 1
+    template:
+      spec:
+        containers:
+        - name: rover
+          image: im2nguyen/rover:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+          - containerPort: 9000
+          volumeMounts:
+            - mountPath: /src/plan.json
+              name: plan
+              subPath: plan.json
+        volumes:
+            - name: plan
+              configMap:
+                name: rover
+                items:
+                  - key: plan.json
+                    path: plan.json
