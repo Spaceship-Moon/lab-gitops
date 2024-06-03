@@ -23,7 +23,7 @@ spec:
   source:
     repoURL: https://github.com/Spaceship-Moon/lab-gitops.git
     targetRevision: dev
-    path: applications/infrastructure/argo-apps-infra.yaml
+    path: applications/infrastructure/shared/argo-apps-infra.yaml
     plugin:
       name: envsubst
       env:
