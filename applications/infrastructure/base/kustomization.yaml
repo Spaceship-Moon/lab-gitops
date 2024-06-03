@@ -1,0 +1,11 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - argocd.yaml
+  - argocd-image-updater.yaml
+  - cert-manager.yaml
+  - cert-manager-google-cas.yaml
+  - google-cluster-issuer.yaml
+  - ingress-nginx.yaml
+  - rabbitmq.yaml

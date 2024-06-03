@@ -1,0 +1,12 @@
+apiVersion: cas-issuer.jetstack.io/v1beta1
+kind: GoogleCASClusterIssuer
+metadata:
+  name: google-cas
+spec:
+  project: theding0x-lab
+  location: us-central1
+  caPoolId: base
+  # credentials are optional if workload identity is enabled
+  credentials:
+    name: "googlecas-token"
+    key: "googlecas.json"
